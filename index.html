@@ -53,7 +53,7 @@ body {
 	</div>
 	<script>
 	async function readme() {
-		const url = 'https://github.com/YideBN/'+window.location.pathname.split('/').pop()+'/readme.md';
+		const url = 'https://raw.githubusercontent.com/YideBN/'+window.location.pathname.split('/').pop()+'/main/README.md';
 		const response = await fetch(url);
 		const text = await response.text();
 		const container = document.getElementById('data-container');
@@ -75,3 +75,4 @@ body {
 </body>
 
 </html>
+
