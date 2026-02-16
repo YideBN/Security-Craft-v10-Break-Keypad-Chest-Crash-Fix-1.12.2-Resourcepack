@@ -17,6 +17,7 @@
   background-color: #04AA6D;
   border: 2px solid #04AA6D;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .button:hover {
@@ -48,17 +49,20 @@ body {
 <body>
     <div id="content" class="markdown-body">Loading...</div>
     <script>
-    async function readme() {
-      try{
-        const url = 'https://raw.githubusercontent.com/YideBN/'+window.location.pathname.replace(/^\/|\/$/g, '')+'/main/README.md';
+    async function readme(file='README.md') {
+        const url = 'https://raw.githubusercontent.com/YideBN/'+window.location.pathname.replace(/^\/|\/$/g, '')+'/main/'+file;
         const response = await fetch(url);
-        const text = await response.text();
-        document.getElementById('content').innerHTML = marked.parse(text);
-      } catch (error) {
-        document.getElementById('content').innerHTML = `Error: ${error.message}`;
-      }
+        document.getElementById('content').innerHTML = marked.parse(await response.text());
+        document.querySelectorAll('#content a').forEach(a => {
+          a.onclick = (e) => {
+            e.preventDefault();
+            const href = a.getAttribute('href');
+            if (href.endsWith('.md')) readme(href.split('/').pop());
+            else if (href.startsWith('http')) window.open(href, '_blank');
+          };
+        });
     }
-    document.addEventListener('DOMContentLoaded', readme);
+    document.addEventListener('DOMContentLoaded', () => readme('README.md'));
     </script>
     
     <button class="button" onclick="window.location.href='https://github.com/YideBN/'+window.location.pathname.replace(/^\/|\/$/g, '')+'/releases'">Download</button>
