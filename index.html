@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css">
 <style>
 .button {
   border: none;
@@ -14,26 +16,22 @@
   cursor: pointer;
   background-color: #04AA6D;
   border: 2px solid #04AA6D;
+  margin-top: 20px;
 }
 
 .button:hover {
   color: #04AA6D;
   background-color: transparent;
 }
-
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css">
-<style>
-  .markdown-body {
-      box-sizing: border-box;
-      min-width: 200px;
-      max-width: 980px;
-      margin: 20px auto;
-      padding: 45px;
-      background: white;
-      border-radius: 8px;
-  }
-</style>
+.markdown-body {
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 20px auto;
+  padding: 45px;
+  border-radius: 8px;
+  width: 90%;
+}
 body {
     margin: 0;
     min-height: 100vh;
@@ -53,20 +51,13 @@ body {
     </div>
     <script>
     async function readme() {
-      const nav = navigator.userAgent;
-      if (nav.includes('Windows') or nav.includes('Linux') or nav.includes('Mac')) {
-          try{
-            const url = 'https://raw.githubusercontent.com/YideBN/'+window.location.pathname.replace(/^\/|\/$/g, '')+'/main/README.md';
-            const response = await fetch(url);
-            const text = await response.text();
-            document.getElementById('content').innerHTML = marked.parse(text);
-          } catch (error) {
-            document.getElementById('content').innerHTML = ${error.message};
-          }
-      }
-      else
-      {
-        container.innerHTML = `<div class="data-line">README.MD reading is not supported on mobile devices.</div>`;
+      try{
+        const url = 'https://raw.githubusercontent.com/YideBN/'+window.location.pathname.replace(/^\/|\/$/g, '')+'/main/README.md';
+        const response = await fetch(url);
+        const text = await response.text();
+        document.getElementById('content').innerHTML = marked.parse(text);
+      } catch (error) {
+        document.getElementById('content').innerHTML = ${error.message};
       }
     }
     document.addEventListener('DOMContentLoaded', readme);
@@ -76,6 +67,7 @@ body {
 </body>
 
 </html>
+
 
 
 
