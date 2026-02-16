@@ -46,9 +46,7 @@ body {
 </style>
 </head>
 <body>
-    <div id="data-container" class="data-container">
-        <div class="data-line">Loading...</div>
-    </div>
+    <div id="content" class="markdown-body">Loading...</div>
     <script>
     async function readme() {
       try{
@@ -57,7 +55,7 @@ body {
         const text = await response.text();
         document.getElementById('content').innerHTML = marked.parse(text);
       } catch (error) {
-        document.getElementById('content').innerHTML = ${error.message};
+        document.getElementById('content').innerHTML = `Error: ${error.message}`;
       }
     }
     document.addEventListener('DOMContentLoaded', readme);
@@ -67,8 +65,3 @@ body {
 </body>
 
 </html>
-
-
-
-
-
