@@ -21,24 +21,19 @@
   background-color: transparent;
 }
 
-.data-container {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    margin-top: 20px;
-    margin-bottom: 30px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-.data-line {
-    padding: 8px;
-    border-bottom: 1px solid #eee;
-    white-space: pre-wrap;
-    font-family: monospace;
-}
-.data-line:last-child {
-    border-bottom: none;
-}
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css">
+<style>
+  .markdown-body {
+      box-sizing: border-box;
+      min-width: 200px;
+      max-width: 980px;
+      margin: 20px auto;
+      padding: 45px;
+      background: white;
+      border-radius: 8px;
+  }
+</style>
 body {
     margin: 0;
     min-height: 100vh;
@@ -64,19 +59,9 @@ body {
             const url = 'https://raw.githubusercontent.com/YideBN/'+window.location.pathname.replace(/^\/|\/$/g, '')+'/main/README.md';
             const response = await fetch(url);
             const text = await response.text();
-            const container = document.getElementById('data-container');
-            container.innerHTML = '';
-            const lines = text.split('\n');
-            lines.forEach(line => {
-                if (line.trim() !== '') {
-                    const div = document.createElement('div');
-                    div.className = 'data-line';
-                    div.textContent = line;
-                    container.appendChild(div);
-                }
-            });
+            document.getElementById('content').innerHTML = marked.parse(text);
           } catch (error) {
-              container.innerHTML = `<div class="data-line">${error.message}</div>`;
+            document.getElementById('content').innerHTML = ${error.message};
           }
       }
       else
@@ -91,6 +76,7 @@ body {
 </body>
 
 </html>
+
 
 
 
