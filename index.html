@@ -30,9 +30,9 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 .data-line {
-	padding: 8px;
-	border-bottom: 1px solid #eee;
-	font-family: monospace;
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    font-family: monospace;
 }
 body {
     margin: 0;
@@ -48,34 +48,31 @@ body {
 </style>
 </head>
 <body>
-	<div id="data-container" class="data-container">
-		<div class="data-line">Загрузка...</div>
-	</div>
-	<script>
-	async function readme() {
-		const proxy = 'https://api.allorigins.win/raw?url=';
-		const url = 'https://cdn.jsdelivr.net/gh/YideBN/'+window.location.pathname.split('/').pop()+'@main/README.md';
-		const response = await fetch(url);
-		const text = await response.text();
-		const container = document.getElementById('data-container');
-		container.innerHTML = '';
-		const lines = text.split('\n');
-		lines.forEach(line => {
-			if (line.trim() !== '') {
-				const div = document.createElement('div');
-				div.className = 'data-line';
-				div.textContent = line;
-				container.appendChild(div);
-			}
-		});
-	}
+    <div id="data-container" class="data-container">
+        <div class="data-line">Загрузка...</div>
+    </div>
+    <script>
+    async function readme() {
+        const proxy = 'https://api.allorigins.win/raw?url=';
+        const url = 'https://raw.githubusercontent.com/YideBN/'+window.location.pathname.split('/').pop()+'/main/README.md';
+        const response = await fetch(proxy + encodeURIComponent(url));
+        const text = await response.text();
+        const container = document.getElementById('data-container');
+        container.innerHTML = '';
+        const lines = text.split('\n');
+        lines.forEach(line => {
+            if (line.trim() !== '') {
+                const div = document.createElement('div');
+                div.className = 'data-line';
+                div.textContent = line;
+                container.appendChild(div);
+            }
+        });
+    }
     document.addEventListener('DOMContentLoaded', readme);
     </script>
     
-	<button class="button button" onclick="window.location.href='https://github.com/YideBN/'+window.location.pathname.split('/').pop()+'/releases">Download</button>
+    <button class="button button" onclick="window.location.href='https://github.com/YideBN/'+window.location.pathname.split('/').pop()+'/releases">Download</button>
 </body>
 
 </html>
-
-
-
